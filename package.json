@@ -21,6 +21,7 @@
     "twitter": "^1.7.0"
   },
   "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "del": "^2.2.2",
     "gulp": "^3.9.1",

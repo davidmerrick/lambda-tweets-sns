@@ -12,11 +12,7 @@ gulp.task('clean', function() {
 
 gulp.task('js', function() {
     return gulp.src('src/**/*')
-        .pipe(
-            babel({
-                presets: ['es2015']
-            })
-        )
+        .pipe(babel())
         .pipe(gulp.dest('dist/'));
 });
 

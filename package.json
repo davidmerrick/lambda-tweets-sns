@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/davidmerrick/lambda-get-tweets#readme",
   "dependencies": {
+    "aws-sdk": "^2.63.0",
     "twitter": "^1.7.0"
   },
   "devDependencies": {

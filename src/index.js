@@ -1,18 +1,21 @@
 'use strict'
 
-import Twitter from 'twitter'
+import TwitterUtils from './utils/TwitterUtils'
+import AWS from 'aws-sdk'
 
-let client = new Twitter({
-    consumer_key: process.env.CONSUMER_KEY,
-    consumer_secret: process.env.CONSUMER_SECRET,
-    access_token_key: process.env.ACCESS_TOKEN_KEY,
-    access_token_secret: process.env.ACCESS_TOKEN_SECRET
-});
+exports.handler = async function index(event, context, callback){
+    const SNS_TOPIC = process.env.SNS_TOPIC || callback(new Error("Please specify an SNS_TOPIC."));
 
-exports.handler = function index(event, context, callback){
-    let screen_name = event.screen_name || process.env.SCREEN_NAME;
-    let params = {screen_name: screen_name};
-    client.get(`statuses/user_timeline`, params, (err, tweets, response) => {
-        callback(null, tweets);
-    });
-}
+    let screenName = process.env.SCREEN_NAME;
+    let allTweets = await TwitterUtils.getTweets(screenName);
+    allTweets = TwitterUtils.filterOutRetweets(allTweets);
+    const sns = new AWS.SNS();
+    let params = {
+        Message: allTweets,
+        Subject: "New Tweets",
+        TopicArn: SNS_TOPIC
+    };
+
+    sns.publish(params, context.done);
+    return callback(null);
+};

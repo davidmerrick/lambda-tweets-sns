@@ -21,7 +21,7 @@ exports.handler = async function index(event, context, callback){
         if(err){
             return callback(err);
         }
-
+        console.log("Successfully published to SNS");
         return callback(null);
     });
 };

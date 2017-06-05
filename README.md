@@ -4,6 +4,10 @@ Lambda Function to fetch Tweets and publish them to SNS.
 
 * Includes gulp config for deployment 
 
+## Reference:
+
+* http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SNS.html#publish-property
+
 ## Deployment:
 
 1. Set up an IAM role or user with Lambda access using the "AWSLambdaFullAccess" policy.

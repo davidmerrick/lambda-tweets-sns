@@ -12,11 +12,11 @@ exports.handler = async function index(event, context, callback){
     allTweets = TwitterUtils.filterOutRetweets(allTweets);
     const sns = new AWS.SNS();
     let params = {
-        Message: allTweets,
+        Message: JSON.stringify(allTweets),
         Subject: "New Tweets",
         TopicArn: SNS_TOPIC
     };
 
     sns.publish(params, context.done);
-    return callback(null);
+    return callback(allTweets);
 };

@@ -1,4 +1,6 @@
-Lambda Function to fetch the most recent Tweets from the Twitter API given a Twitter handle.
+[![Build Status](https://travis-ci.org/davidmerrick/lambda-tweets-sns.svg?branch=master)](https://travis-ci.org/davidmerrick/lambda-tweets-sns)
+
+Lambda Function to fetch Tweets and publish them to SNS.
 
 * Includes gulp config for deployment 
 

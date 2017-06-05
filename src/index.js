@@ -17,6 +17,11 @@ exports.handler = async function index(event, context, callback){
         TopicArn: SNS_TOPIC
     };
 
-    sns.publish(params, context.done);
-    return callback(allTweets);
+    sns.publish(params, (err, data) => {
+        if(err){
+            return callback(err);
+        }
+
+        return callback(null);
+    });
 };

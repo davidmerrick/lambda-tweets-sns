@@ -9,7 +9,12 @@ exports.handler = async function index(event, context, callback){
 
     let screenName = process.env.SCREEN_NAME;
     let allTweets = await TwitterUtils.getTweets(screenName);
-    allTweets = TwitterUtils.filterOutRetweets(allTweets);
+    try {
+        allTweets = TwitterUtils.filterOutRetweets(allTweets);
+    } catch(err){
+        return callback(err);
+    }
+
     const sns = new AWS.SNS();
     let params = {
         Message: JSON.stringify(allTweets),

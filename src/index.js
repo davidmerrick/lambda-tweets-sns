@@ -2,6 +2,7 @@
 
 import TwitterUtils from './utils/TwitterUtils'
 import AWS from 'aws-sdk'
+import regeneratorRuntime from 'regenerator-runtime' // Important! This needs to be imported here for Babel to transpile correctly.
 
 exports.handler = async function index(event, context, callback){
     const SNS_TOPIC = process.env.SNS_TOPIC || callback(new Error("Please specify an SNS_TOPIC."));

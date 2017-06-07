@@ -11,7 +11,10 @@ class TwitterUtils {
                 access_token_secret: process.env.ACCESS_TOKEN_SECRET
             });
 
-            let params = {screen_name: screenName};
+            let params = {
+                screen_name: screenName,
+                include_rts: false // Exclude retweets
+            };
             client.get(`statuses/user_timeline`, params, (err, tweets, response) => {
                 if(err){
                     return reject(err);
@@ -19,10 +22,6 @@ class TwitterUtils {
                 return resolve(tweets);
             });
         });
-    }
-
-    static filterOutRetweets(tweets){
-        return tweets.filter(tweet => !tweet.retweeted_status);
     }
 }
 

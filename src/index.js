@@ -8,16 +8,11 @@ exports.handler = async function index(event, context, callback){
     const SNS_TOPIC = process.env.SNS_TOPIC || callback(new Error("Please specify an SNS_TOPIC."));
 
     let screenName = process.env.SCREEN_NAME;
-    let allTweets = await TwitterUtils.getTweets(screenName);
-    try {
-        allTweets = TwitterUtils.filterOutRetweets(allTweets);
-    } catch(err){
-        return callback(err);
-    }
+    let tweets = await TwitterUtils.getTweets(screenName);
 
     const sns = new AWS.SNS();
     let params = {
-        Message: JSON.stringify(allTweets),
+        Message: JSON.stringify(tweets),
         Subject: "New Tweets",
         TopicArn: SNS_TOPIC
     };
